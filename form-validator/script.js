@@ -56,6 +56,13 @@ function checkLength(input, min, max) {
   }
 }
 
+// パスワードの比較チェック
+function checkPasswordsMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, "パスワードが一致しません。");
+  }
+}
+
 // inputのIDの取得
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1); // 頭文字を大文字にする
@@ -64,9 +71,9 @@ function getFieldName(input) {
 // イベントリスナー
 form.addEventListener("submit", e => {
   e.preventDefault();
-
   checkRequired([username, email, password, password2]);
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
   checkEmail(email);
+  checkPasswordsMatch(password, password2);
 });
