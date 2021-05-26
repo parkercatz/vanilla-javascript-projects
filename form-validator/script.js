@@ -24,37 +24,20 @@ function isValidEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+// 必須項目のチェック
+function checkRequired(inputArr) {
+  inputArr.forEach(input => {
+    if (input.value.trim() === "") {
+      showError(input, "is required");
+    } else {
+      showSuccess(input);
+    }
+  });
+}
+
 // イベントリスナー
-form.addEventListener("submit", function(e) {
+form.addEventListener("submit", e => {
   e.preventDefault();
 
-  // usernameの判定
-  if (username.value === "") {
-    showError(username, "Username is required");
-  } else {
-    showSuccess(username);
-  }
-
-  // emailの判定
-  if (email.value === "") {
-    showError(email, "Email is required");
-  } else if (!isValidEmail(email.value)) {
-    showError(email, "Email is not valid");
-  } else {
-    showSuccess(email);
-  }
-
-  // passwordの判定
-  if (password.value === "") {
-    showError(password, "Password is required");
-  } else {
-    showSuccess(password);
-  }
-
-  // password2の判定
-  if (password2.value === "") {
-    showError(password2, "Password2 is required");
-  } else {
-    showSuccess(password2);
-  }
+  checkRequired([username, email, password, password2]);
 });
