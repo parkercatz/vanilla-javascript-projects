@@ -28,11 +28,16 @@ function isValidEmail(email) {
 function checkRequired(inputArr) {
   inputArr.forEach(input => {
     if (input.value.trim() === "") {
-      showError(input, "is required");
+      showError(input, `${getFieldName(input)} is required`);
     } else {
       showSuccess(input);
     }
   });
+}
+
+// inputのIDの取得
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1); // 頭文字を大文字にする
 }
 
 // イベントリスナー
