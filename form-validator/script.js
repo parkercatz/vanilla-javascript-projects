@@ -28,11 +28,28 @@ function isValidEmail(email) {
 function checkRequired(inputArr) {
   inputArr.forEach(input => {
     if (input.value.trim() === "") {
-      showError(input, `${getFieldName(input)} is required`);
+      showError(input, `${getFieldName(input)}は必須です。`);
     } else {
       showSuccess(input);
     }
   });
+}
+
+// inputの長さをチェック
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showError(
+      input,
+      `${getFieldName(input)}は${min}文字以上で入力してください。`
+    );
+  } else if (input.value.length > max) {
+    showError(
+      input,
+      `${getFieldName(input)}は${max}文字以下で入力してください。`
+    );
+  } else {
+    showSuccess(input);
+  }
 }
 
 // inputのIDの取得
@@ -45,4 +62,6 @@ form.addEventListener("submit", e => {
   e.preventDefault();
 
   checkRequired([username, email, password, password2]);
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 25);
 });
