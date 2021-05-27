@@ -4,7 +4,7 @@ const count = document.getElementById("count");
 const total = document.getElementById("total");
 const movieSelect = document.getElementById("movie");
 
-const ticketPrice = +movieSelect.value;
+let ticketPrice = +movieSelect.value;
 
 // 合計とcountを更新
 function updateSelectedCount() {
@@ -14,6 +14,13 @@ function updateSelectedCount() {
   total.innerText = selectedSeatsCount * ticketPrice;
 }
 
+// 映画を選択したときのイベント
+movieSelect.addEventListener("change", e => {
+  ticketPrice = +e.target.value;
+  updateSelectedCount();
+});
+
+// 座席を選択したときのイベント
 container.addEventListener("click", e => {
   // クリックした要素にseatがある && occupiedがない時に
   if (
