@@ -6,10 +6,18 @@ const movieSelect = document.getElementById("movie");
 
 let ticketPrice = +movieSelect.value;
 
+// 選択した映画のindexとpriceをlocalStrageに保存
+function setMovieData(movieIndex, moviePrice) {
+  localStorage.setItem("selectedMovieIndex", movieIndex);
+  localStorage.setItem("selectedMoviePrice", moviePrice);
+}
+
 // 合計とcountを更新
 function updateSelectedCount() {
   const selectedSeats = document.querySelectorAll(".row .seat.selected");
+  const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
   const selectedSeatsCount = selectedSeats.length;
+  localStorage.setItem("selected", JSON.stringify(seatsIndex));
   count.innerText = selectedSeatsCount;
   total.innerText = selectedSeatsCount * ticketPrice;
 }
@@ -17,6 +25,7 @@ function updateSelectedCount() {
 // 映画を選択したときのイベント
 movieSelect.addEventListener("change", e => {
   ticketPrice = +e.target.value;
+  setMovieData(e.target.selectedIndex);
   updateSelectedCount();
 });
 
