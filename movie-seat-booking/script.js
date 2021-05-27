@@ -4,6 +4,8 @@ const count = document.getElementById("count");
 const total = document.getElementById("total");
 const movieSelect = document.getElementById("movie");
 
+populateUI();
+
 let ticketPrice = +movieSelect.value;
 
 // 選択した映画のindexとpriceをlocalStrageに保存
@@ -20,18 +22,36 @@ function updateSelectedCount() {
   localStorage.setItem("selected", JSON.stringify(seatsIndex));
   count.innerText = selectedSeatsCount;
   total.innerText = selectedSeatsCount * ticketPrice;
+  setMovieData(movieSelect.selectedIndex, movieSelect.value);
+}
+
+// localStrageからデータを取得してUIを作成
+function populateUI() {
+  const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+  if (selectedSeats !== null && selectedSeats.length > 0) {
+    seats.forEach((seats, index) => {
+      if (selectedSeats.indexOf(index > -1)) {
+        seat.classList.add("selected");
+      }
+    });
+  }
+
+  const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
+
+  if (selectedMovieIndex !== null) {
+    movieSelect.selectedIndex = selectedMovieIndex;
+  }
 }
 
 // 映画を選択したときのイベント
 movieSelect.addEventListener("change", e => {
   ticketPrice = +e.target.value;
-  setMovieData(e.target.selectedIndex);
+  setMovieData(e.target.selectedIndex, e.target.value);
   updateSelectedCount();
 });
 
 // 座席を選択したときのイベント
 container.addEventListener("click", e => {
-  // クリックした要素にseatがある && occupiedがない時に
   if (
     e.target.classList.contains("seat") &&
     !e.target.classList.contains("occupied")
@@ -41,3 +61,6 @@ container.addEventListener("click", e => {
     updateSelectedCount();
   }
 });
+
+// countと合計を初期化
+updateSelectedCount();
