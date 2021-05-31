@@ -24,10 +24,17 @@ async function getRandomUser() {
   addData(newUser);
 }
 
+// Double eveyones money
+function doubleMoney() {
+  data = data.map(user => {
+    return { ...user, money: user.money * 2 };
+  });
+  updateDOM();
+}
+
 // Add new obj to data arr
 function addData(obj) {
   data.push(obj);
-
   updateDOM();
 }
 
@@ -53,3 +60,4 @@ function formatMoney(number) {
 
 // イベントリスナー
 addUserButton.addEventListener("click", getRandomUser);
+doubleButton.addEventListener("click", getRandomUser);
