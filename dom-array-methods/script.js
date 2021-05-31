@@ -4,6 +4,7 @@ const doubleButton = document.getElementById("double");
 const showMillionairesBtn = document.getElementById("show-millionaires");
 const sortBtn = document.getElementById("sort");
 const calculateWealthBtn = document.getElementById("calculate-wealth");
+const clearBtn = document.getElementById("clear");
 
 let data = [];
 
@@ -55,6 +56,12 @@ function calculateWealth() {
   main.appendChild(wealthEl);
 }
 
+// clear data
+function clearData() {
+  data.length = 0;
+  updateDOM();
+}
+
 // Add new obj to data arr
 function addData(obj) {
   data.push(obj);
@@ -87,3 +94,4 @@ doubleButton.addEventListener("click", doubleMoney);
 sortBtn.addEventListener("click", sortByRichest);
 showMillionairesBtn.addEventListener("click", showMillionaires);
 calculateWealthBtn.addEventListener("click", calculateWealth);
+clearBtn.addEventListener("click", clearData);
